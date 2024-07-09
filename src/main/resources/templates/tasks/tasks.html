@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Taches</title>
@@ -22,5 +22,15 @@
         </div>
         <button type="submit" class="btn btn-primary my-2">Enregistrer</button>
     </form>
+
+    <div class="card">
+        <div class="card-header">Liste des taches</div>
+        <ul class="list-group">
+          <li th:each="task: ${taskList}" class="p-2">
+              <p class="display-6" th:text="${task.name}"></p>
+              <span th:text="${task.description}"></span>
+          </li>
+        </ul>
+    </div>
 </body>
 </html>
