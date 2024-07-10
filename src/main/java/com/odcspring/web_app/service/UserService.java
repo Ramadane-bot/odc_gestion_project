@@ -15,10 +15,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository repository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder encoder;
 
     public void add(User user){
-        String password = passwordEncoder.encode(user.getPassword());
+        String password = encoder.encode(user.getPassword());
         user.setPassword(password);
         repository.save(user);
     }
@@ -29,7 +29,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("C'est utilisateur n'existe pas"));
+        return repository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("Cet Utilisateur n'existe pas"));
     }
 }

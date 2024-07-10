@@ -7,31 +7,29 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class ODCAuthentication implements AuthenticationManager {
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder encoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = authentication.getPrincipal().toString();
-        User user = (User) userService.loadUserByUsername(username);
-        if (!passwordEncoder.matches(authentication.getCredentials().toString(), user.getPassword())){
-            throw new RuntimeException("Password incorrect");
+        User user = (User) userService.loadUserByUsername(authentication.getPrincipal().toString());
+        String password = authentication.getCredentials().toString();
+
+        if (!encoder.matches(password, user.getPassword())){
+            throw new RuntimeException("Le mot de passe n'est pas valide");
         }
 
         Authentication authenticated = new UsernamePasswordAuthenticationToken(
-                username,
+                user.getEmail(),
                 user.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                user.getAuthorities()
         );
 
         SecurityContextHolder.getContext().setAuthentication(authenticated);
