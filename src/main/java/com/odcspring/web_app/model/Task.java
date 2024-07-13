@@ -11,6 +11,11 @@ public class Task {
     private int id;
     private String name;
     private String description;
+
     @ManyToOne
     private User user;
+
+    @ManyToOne
+    private Project project;
+    
 }

@@ -16,16 +16,10 @@ public class WebAppApplication {
 		SpringApplication.run(WebAppApplication.class, args);
 	}
 
-	@Bean
+	//@Bean
 	CommandLineRunner runner(UserService service){
 		return args -> {
-			User user = new User();
-			user.setNom("Admin");
-			user.setPassword("1234");
-			user.setPrenom("Admin");
-			user.setEmail("admin@odc.com");
 
-			service.add(user);
 		};
 	}
 

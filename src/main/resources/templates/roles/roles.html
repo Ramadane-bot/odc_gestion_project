@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Taches</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <div class="card shadow p-4 my-3 w-100">
+        <h2 class="text-center">Page de gestion des Roles</h2>
+    </div>
+    <div class="card shadow p-4">
+        <form action="" method="post" th:action="@{/saveRole} ">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Tâche</label>
+                <input type="text" th:field="*{role.name}" class="form-control" id="exampleFormControlInput1" placeholder="nom de la tâche">
+            </div>
+
+
+
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Envoyer</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card shadow p-4">
+        <div class="card-header">
+            Liste des Roles
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">nom du role</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="role : ${roleList}">
+                <th scope="row">1</th>
+                <td th:text="${role.name}"></td>
+
+                <td>
+                    <a th:href="@{utilisateurs/delete/{id}(id=${role.id})}" class="btn btn-danger">Supprimer</a>
+                    <a th:href="@{utilisateurs/edit/{id}(id=${role.id})}" class="btn btn-info">Modifier</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+</html>

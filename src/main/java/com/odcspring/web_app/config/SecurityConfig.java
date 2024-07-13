@@ -26,7 +26,7 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 ).formLogin(form -> {
                     form.loginPage("/login");
-                    form.successForwardUrl("/tasks");
+                    form.successForwardUrl("/");
                     form.loginProcessingUrl("/login");
                 })
                 .authenticationManager(authenticationManager)

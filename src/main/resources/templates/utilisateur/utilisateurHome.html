@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Taches</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+</head>
+<body>
+<div class="container">
+    <div class="card shadow p-4 my-3 w-100">
+        <h2 class="text-center">Page de gestion des Utilisateurs</h2>
+    </div>
+    <div class="card shadow p-4">
+
+            <form class="row   g-3 needs-validation" method="post" th:action="@{/saveUser}">
+                <div class="col-md-6 " >
+                    <label for="validationCustom01" class="form-label">nom</label>
+                    <input type="text" th:field="*{newUtilisateur.nom}" class="form-control" id="validationCustom01" value="Mark" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="validationCustom02" class="form-label">prenom</label>
+                    <input type="text" class="form-control" th:field="*{newUtilisateur.prenom}" id="validationCustom02" value="Otto" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="validationCustom05" class="form-label">Email</label>
+                    <input type="email" th:field="*{newUtilisateur.email}" class="form-control" id="validationCustom05" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="validationCustom06" class="form-label">mot de passe</label>
+                    <input type="text" th:field="*{newUtilisateur.password}" class="form-control" id="validationCustom06" required>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="validationCustom04" class="form-label">Affecter des rôles </label>
+                    <select class="form-select" id="validationCustom04"  th:field="*{newUtilisateur.roles}" multiple required>
+                        <option th:value="${role.id}" th:each="role : ${roles}" th:text="${role.toString()}"  ></option>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <button class="btn btn-primary" type="submit">Submit form</button>
+                </div>
+            </form>
+
+    </div>
+
+    <div class="card shadow p-4">
+        <div class="card-header">
+            Liste des Utilisateurs
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">nom</th>
+                <th scope="col">prenom</th>
+                <th scope="col">email</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="utilisateur : ${utilisateurs}">
+                <th scope="row">1</th>
+                <td th:text="${utilisateur.nom}"></td>
+                <td th:text="${utilisateur.prenom}"></td>
+                <td th:text="${utilisateur.email}"></td>
+               <td>
+                 <a th:href="@{utilisateurs/delete/{id}(id=${utilisateur.id})}" class="btn btn-danger">Supprimer</a>
+                 <a th:href="@{utilisateurs/edit/{id}(id=${utilisateur.id})}" class="btn btn-info">Modifier</a>
+               </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

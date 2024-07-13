@@ -19,8 +19,14 @@ public class User implements UserDetails{
     private String prenom;
     private String email;
     private String password;
+
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
+
+    @ManyToMany
+    private List<Role> roles;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,5 +36,12 @@ public class User implements UserDetails{
     @Override
     public String getUsername() {
         return email;
+    }
+
+    @Override
+    public String toString() {
+        return "" +
+                nom + ' ' + prenom + " > " +
+                email ;
     }
 }

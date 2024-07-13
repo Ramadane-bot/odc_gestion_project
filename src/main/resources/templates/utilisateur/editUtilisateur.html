@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Taches</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+</head>
+<body>
+<div class="container">
+    <div class="card shadow p-4 my-3 w-100">
+        <h2 class="text-center">Page de gestion des Utilisateurs</h2>
+    </div>
+    <div class="card shadow p-4">
+
+        <form class="row   g-3 needs-validation" method="post" th:action="@{/utilisateurs/update/{id}(id=${utilisateur.id})}">
+            <div class="col-md-6 " >
+                <label for="validationCustom01" class="form-label">nom</label>
+                <input type="text" th:field="*{utilisateur.nom}" class="form-control" id="validationCustom01" value="Mark" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom02" class="form-label">prenom</label>
+                <input type="text" class="form-control" th:field="*{utilisateur.prenom}" id="validationCustom02" value="Otto" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6">
+                <label for="validationCustom05" class="form-label">Email</label>
+                <input type="email" th:field="*{utilisateur.email}" class="form-control" id="validationCustom05" required>
+
+            </div>
+
+
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Submit form</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+</body>
+</html>
